@@ -19,7 +19,7 @@ public class MathUtils {
         StringBuilder sb = new StringBuilder();
 
         for (Operator o : Operator.values()) {
-            System.out.println(o.getSymbol() + " -> " + o.ordinal());
+            System.out.println(o.toString() + " " + o.getSymbol() + " -> " + o.ordinal());
             sb.append(o.getSymbol());
             map.put(o.getSymbol(), o);
         }
