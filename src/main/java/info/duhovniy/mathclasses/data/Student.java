@@ -1,4 +1,4 @@
-package info.duhovniy.data;
+package info.duhovniy.mathclasses.data;
 
 
 import lombok.Data;

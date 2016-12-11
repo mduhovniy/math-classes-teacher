@@ -1,4 +1,4 @@
-package info.duhovniy;
+package info.duhovniy.mathclasses;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
