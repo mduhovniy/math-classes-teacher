@@ -1,15 +1,13 @@
-package info.duhovniy.mathclasses.data;
+package info.duhovniy.mathclasses.dto;
 
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
 @Data
-public class Student {
+public class StudentDTO {
 
     @Id
     private String id;
@@ -17,6 +15,4 @@ public class Student {
     private String name;
     private int totalRating;
     private Date lastTrainingDate;
-
-    public Student() {}
 }

@@ -3,7 +3,6 @@ package info.duhovniy.mathclasses;
 
 import info.duhovniy.mathclasses.commons.MathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
-    private MathUtils mathUtils;
+    private final MathUtils mathUtils;
 
     @Autowired
     public Application(MathUtils mathUtils) {

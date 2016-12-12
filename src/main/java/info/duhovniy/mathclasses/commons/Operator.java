@@ -23,5 +23,7 @@ public enum Operator {
         return lambda;
     }
 
-    public Character getSymbol() { return symbol; }
+    public Character getSymbol() {
+        return symbol;
+    }
 }
