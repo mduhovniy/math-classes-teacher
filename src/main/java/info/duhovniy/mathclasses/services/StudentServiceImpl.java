@@ -14,12 +14,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student createStudent(Student student) {
-        studentRepository.insert(student);
-        return student;
+        return studentRepository.insert(student);
     }
 
     @Override
     public Student findStudentByName(String name) {
-        return studentRepository.findOne(name);
+        return studentRepository.findStudentByName(name);
     }
 }
