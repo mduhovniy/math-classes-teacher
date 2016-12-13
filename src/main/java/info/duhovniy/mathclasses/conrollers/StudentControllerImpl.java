@@ -14,9 +14,10 @@ public class StudentControllerImpl implements StudentController {
     private StudentService studentService;
 
     @Override
-    @RequestMapping(value = "/api/students", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void createStudent(@RequestBody Student student) {
+    @RequestMapping(value = "/api/students", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Student createStudent(@RequestBody Student student) {
         studentService.createStudent(student);
+        return student;
     }
 
     @Override

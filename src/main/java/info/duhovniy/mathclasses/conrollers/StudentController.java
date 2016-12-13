@@ -6,7 +6,7 @@ import info.duhovniy.mathclasses.dto.Student;
 
 public interface StudentController {
 
-    void createStudent(Student student);
+    Student createStudent(Student student);
 
     Student findStudentByName(String name);
 }

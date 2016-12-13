@@ -3,6 +3,7 @@ package info.duhovniy.mathclasses.services;
 import info.duhovniy.mathclasses.dao.StudentRepository;
 import info.duhovniy.mathclasses.dto.Student;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,8 +13,9 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
 
     @Override
-    public void createStudent(Student student) {
+    public Student createStudent(Student student) {
         studentRepository.insert(student);
+        return student;
     }
 
     @Override

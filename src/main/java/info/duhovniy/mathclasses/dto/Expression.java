@@ -21,4 +21,6 @@ public class Expression {
 
     // Expression Pattern
     private List<String> body;
+    private double min;
+    private double max;
 }
