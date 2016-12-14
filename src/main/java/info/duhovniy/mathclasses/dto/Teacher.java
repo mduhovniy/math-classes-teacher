@@ -12,8 +12,9 @@ import java.util.Map;
 public class Teacher {
 
     @Id
-    private String name;
+    private String id;
 
+    private String name;
     private String email;
 
     // Student Name - Active

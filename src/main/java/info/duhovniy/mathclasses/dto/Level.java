@@ -12,8 +12,9 @@ import java.util.Map;
 public class Level {
 
     @Id
-    private String name;
+    private String id;
 
+    private String name;
     private int rate;
 
     // Expression Id - Expression Rating

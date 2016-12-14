@@ -11,7 +11,6 @@ import java.util.Map;
 
 @Data
 @Document
-@AllArgsConstructor
 public class Student {
 
     @Id
@@ -22,7 +21,7 @@ public class Student {
     private String email;
     private int totalRating;
     private Date lastTrainingDate;
-    private String lastLevelId;
+    private String lastLevelName;
 
     // Expression Id - isSolved
     private Map<String, Boolean> expressionHistory;

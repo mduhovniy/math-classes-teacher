@@ -43,7 +43,14 @@ public class MathClassesTeacherApplicationTests {
         map.put("Expression12", true);
         map.put("Expression13", false);
 
-        Student student = new Student("id4", "Ilan", "ilan@gmail.com", 1, new Date(), "level1", map);
+        Student student = new Student();
+
+        student.setName("Ilan");
+        student.setEmail("ilan@gmail.com");
+        student.setTotalRating(100);
+        student.setLastTrainingDate(new Date());
+        student.setLastLevelName("level1");
+        student.setExpressionHistory(map);
 
         studentService.createStudent(student);
         ObjectMapper objectMapper = new ObjectMapper();
