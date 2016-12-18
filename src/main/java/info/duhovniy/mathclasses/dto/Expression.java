@@ -14,13 +14,14 @@ public class Expression {
     @Id
     private String id;
 
-    private String teacherName;
     private String levelName;
+    // Rating within Level
     private int rating;
+    // time limit for solution
     private int maxTimeInSeconds;
 
     // Expression Pattern
     private List<String> body;
-    private double min;
-    private double max;
+    private int min;
+    private int max;
 }

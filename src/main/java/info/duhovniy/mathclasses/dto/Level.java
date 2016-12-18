@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Map;
+import java.util.List;
 
 @Data
 @Document
@@ -15,8 +15,9 @@ public class Level {
     private String id;
 
     private String name;
+    private String teacherName;
     private int rate;
 
-    // Expression Id - Expression Rating
-    private Map<String, Integer> expressions;
+    // Expression Id
+    private List<String> expressions;
 }

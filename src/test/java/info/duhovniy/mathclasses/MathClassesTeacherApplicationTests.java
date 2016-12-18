@@ -10,10 +10,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.BootstrapContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 @RunWith(SpringRunner.class)
@@ -45,11 +46,11 @@ public class MathClassesTeacherApplicationTests {
 
         Student student = new Student();
 
-        student.setName("Ilan");
-        student.setEmail("ilan@gmail.com");
-        student.setTotalRating(100);
+        student.setName("Mike");
+        student.setEmail("mike@gmail.com");
+        student.setTotalRating(99);
         student.setLastTrainingDate(new Date());
-        student.setLastLevelName("level1");
+        student.setLastLevelName("level2");
         student.setExpressionHistory(map);
 
         studentService.createStudent(student);
