@@ -35,19 +35,19 @@ public class StudentControllerImpl implements StudentController {
 
     @Override
     @RequestMapping(method = RequestMethod.GET)
-    public Student findStudentByName(@RequestParam("name") String name) {
+    public List<Student> findAllStudents() {
+        return studentService.findAllStudents();
+    }
+
+    @Override
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    public Student findStudentByName(@PathVariable("name") String name) {
         return studentService.findStudentByName(name);
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.GET)
-    public Student findStudentById(@RequestParam("id") String id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Student findStudentById(@PathVariable("id") String id) {
         return studentService.findStudentById(id);
-    }
-
-    @Override
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Student> findAllStudents() {
-        return studentService.findAllStudents();
     }
 }
