@@ -2,6 +2,7 @@ package info.duhovniy.mathclasses.services;
 
 
 import info.duhovniy.mathclasses.dto.Student;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

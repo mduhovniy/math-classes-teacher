@@ -6,34 +6,39 @@ import info.duhovniy.mathclasses.commons.MathUtils;
 import info.duhovniy.mathclasses.commons.MathUtilsImpl;
 import info.duhovniy.mathclasses.dto.Student;
 import info.duhovniy.mathclasses.services.StudentService;
+import info.duhovniy.mathclasses.services.StudentServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class MathClassesTeacherApplicationTests {
 
+    private static final Logger LOG = LoggerFactory.getLogger(MathClassesTeacherApplicationTests.class);
     private final MathUtils mathUtils = new MathUtilsImpl();
 
     @Autowired
-    private StudentService studentService;
+    private StudentServiceImpl studentService;
 
     @Test
 	public void calculate() {
         String infix = " 3*(5+ 4  )/2 / 3  ";
 
-        System.out.println("Infix: " + infix);
-        System.out.println("Prepared string: " + mathUtils.prepareString(infix));
-        System.out.println("Postfix: " + mathUtils.infixToPostfix(mathUtils.prepareString(infix)));
-        System.out.println("Result: " + mathUtils.expressionCounter(mathUtils.infixToPostfix(mathUtils.prepareString(infix))));
+        LOG.info("Infix: " + infix);
+        LOG.info("Prepared string: " + mathUtils.prepareString(infix));
+        LOG.info("Postfix: " + mathUtils.infixToPostfix(mathUtils.prepareString(infix)));
+        LOG.info("Result: " + mathUtils.expressionCounter(mathUtils.infixToPostfix(mathUtils.prepareString(infix))));
 	}
 
 	@Test
@@ -61,6 +66,6 @@ public class MathClassesTeacherApplicationTests {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println(json);
+        LOG.info(json);
     }
 }
