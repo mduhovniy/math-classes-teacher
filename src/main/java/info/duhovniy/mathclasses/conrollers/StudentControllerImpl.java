@@ -40,13 +40,13 @@ public class StudentControllerImpl implements StudentController {
     }
 
     @Override
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public Student findStudentByName(@PathVariable("name") String name) {
         return studentService.findStudentByName(name);
     }
 
     @Override
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public Student findStudentById(@PathVariable("id") String id) {
         return studentService.findStudentById(id);
     }

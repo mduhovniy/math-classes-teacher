@@ -13,6 +13,7 @@
 ### IntelliJ IDEA ###
 .idea
 *.iws
+*.iml
 *.ipr
 
 ### NetBeans ###
@@ -21,7 +22,3 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-.DS_Store
-classes/
-registration-server/src/test/resources/
-src/test/resources/

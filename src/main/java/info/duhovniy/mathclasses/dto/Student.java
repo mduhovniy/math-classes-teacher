@@ -17,7 +17,7 @@ public class Student {
 
     private String name;
     private String email;
-    // Sum of Level Rate * Expression Rating for each solved expression
+    // Sum of Level (Rate * Expression Rating) for each solved expression
     private int totalRating;
     private Date lastTrainingDate;
     private String lastLevelName;

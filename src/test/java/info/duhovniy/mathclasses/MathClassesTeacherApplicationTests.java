@@ -6,14 +6,12 @@ import info.duhovniy.mathclasses.commons.MathUtils;
 import info.duhovniy.mathclasses.commons.MathUtilsImpl;
 import info.duhovniy.mathclasses.dto.Student;
 import info.duhovniy.mathclasses.services.StudentService;
-import info.duhovniy.mathclasses.services.StudentServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
@@ -29,7 +27,7 @@ public class MathClassesTeacherApplicationTests {
     private final MathUtils mathUtils = new MathUtilsImpl();
 
     @Autowired
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
 
     @Test
 	public void calculate() {
