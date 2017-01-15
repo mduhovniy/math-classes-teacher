@@ -42,18 +42,18 @@ public class MathClassesTeacherApplicationTests {
 	@Test
     public void writeToMongo() {
         Map<String, Boolean> map = new LinkedHashMap<>();
-        map.put("Expression10", true);
-        map.put("Expression11", false);
-        map.put("Expression12", true);
-        map.put("Expression13", false);
+        map.put("Expression1", true);
+        map.put("Expression2", false);
+        map.put("Expression3", true);
+        map.put("Expression5", false);
 
         Student student = new Student();
 
-        student.setName("Mike");
-        student.setEmail("mike@gmail.com");
-        student.setTotalRating(99);
+        student.setName("Igor");
+        student.setEmail("igor@gmail.com");
+        student.setTotalRating(10);
         student.setLastTrainingDate(new Date());
-        student.setLastLevelName("level2");
+        student.setLastLevelName("leve3");
         student.setExpressionHistory(map);
 
         studentService.createStudent(student);
