@@ -83,15 +83,15 @@ public class MathUtilsImpl implements MathUtils {
     }
 
     @Override
-    public String prepareString(String input) {
+    public String prepareString(String input) throws MathException {
 
         if (input.isEmpty())
-            return "Error: String is empty";
+            throw new MathException("Error: Expression string is empty");
 
         input = input.trim();
 
         if (map.containsKey(input.charAt(0)) || map.containsKey(input.charAt(input.length() - 1)))
-            return "Error: String cannot start or end with operator";
+            throw new MathException("Error: Expression string cannot start or end with operator");
 
         StringBuilder sb = new StringBuilder();
         int parenthesesCounter = 0;
@@ -109,7 +109,7 @@ public class MathUtilsImpl implements MathUtils {
 
             if (c == '.') {
                 if (wasDot) {
-                    return "Error: Too many dots in single digit";
+                    throw new MathException("Error: Too many dots in single digit");
                 }
                 isDigit = true;
                 wasDot = true;
@@ -126,7 +126,7 @@ public class MathUtilsImpl implements MathUtils {
                     wasOperator = false;
                 }
                 if (isDigit)
-                    return "Error: No operator between digit and (";
+                    throw new MathException("Error: No operator between digit and parentheses");
                 sb.append(c);
                 sb.append(' ');
             }
@@ -135,7 +135,7 @@ public class MathUtilsImpl implements MathUtils {
                 if (parenthesesCounter > 0) {
                     parenthesesCounter--;
                     if (wasOperator) {
-                        return "Error: Operator was not closed";
+                        throw new MathException("Error: Operator was not closed");
                     }
                     if (isDigit) {
                         sb.append(' ');
@@ -144,13 +144,13 @@ public class MathUtilsImpl implements MathUtils {
                     sb.append(c);
                     sb.append(' ');
                 } else {
-                    return "Error: Parentheses error";
+                    throw new MathException("Error: Parentheses error");
                 }
             }
 
             if (map.containsKey(c)) {
                 if (wasOperator) {
-                    return "Error: Two operators together";
+                    throw new MathException("Error: Two operators together");
                 }
                 if (isDigit) {
                     sb.append(' ');
@@ -164,7 +164,7 @@ public class MathUtilsImpl implements MathUtils {
         }
 
         if (parenthesesCounter != 0)
-            return "Error: Parentheses error";
+            throw new MathException("Error: Parentheses error");
         return sb.toString();
     }
 

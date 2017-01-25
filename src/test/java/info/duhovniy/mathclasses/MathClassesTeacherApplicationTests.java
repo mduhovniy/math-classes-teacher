@@ -2,6 +2,7 @@ package info.duhovniy.mathclasses;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import info.duhovniy.mathclasses.commons.MathException;
 import info.duhovniy.mathclasses.commons.MathUtils;
 import info.duhovniy.mathclasses.commons.MathUtilsImpl;
 import info.duhovniy.mathclasses.dto.Student;
@@ -31,13 +32,18 @@ public class MathClassesTeacherApplicationTests {
 
     @Test
 	public void calculate() {
-        String infix = " 3*(5+ 4  )/2 / 3  ";
-
+        String infix = " 3*(5..+ 4  )/2 / 3  ";
         LOG.info("Infix: " + infix);
-        LOG.info("Prepared string: " + mathUtils.prepareString(infix));
-        LOG.info("Postfix: " + mathUtils.infixToPostfix(mathUtils.prepareString(infix)));
-        LOG.info("Result: " + mathUtils.expressionCounter(mathUtils.infixToPostfix(mathUtils.prepareString(infix))));
-	}
+
+        try {
+            String preparedString = mathUtils.prepareString(infix);
+            LOG.info("Prepared string: " + preparedString);
+            LOG.info("Postfix: " + mathUtils.infixToPostfix(preparedString));
+            LOG.info("Result: " + mathUtils.expressionCounter(mathUtils.infixToPostfix(preparedString)));
+        } catch (MathException e) {
+            LOG.info(e.getMessage());
+        }
+    }
 
 	@Test
     public void writeToMongo() {
