@@ -1,13 +1,9 @@
 package info.duhovniy.mathclasses.dao;
 
-
-import info.duhovniy.mathclasses.dto.Student;
+import info.duhovniy.mathclasses.dto.Level;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public interface StudentRepository extends MongoRepository<Student, String> {
-
-    Student findStudentByName(String name);
+public interface LevelRepository extends MongoRepository<Level, String> {
 }
