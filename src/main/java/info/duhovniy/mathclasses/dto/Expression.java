@@ -22,6 +22,9 @@ public class Expression {
 
     // Expression Pattern
     private List<String> body;
+    // Range of random expression parameters
     private int min;
     private int max;
+    // Number of digits after dot
+    private int rank;
 }

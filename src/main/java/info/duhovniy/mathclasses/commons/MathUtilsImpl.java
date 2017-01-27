@@ -1,9 +1,12 @@
 package info.duhovniy.mathclasses.commons;
 
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import info.duhovniy.mathclasses.dto.Expression;
+
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.lang.Double.valueOf;
 
@@ -83,7 +86,7 @@ public class MathUtilsImpl implements MathUtils {
     }
 
     @Override
-    public String prepareString(String input) throws MathException {
+    public List<String> prepareString(String input) throws MathException {
 
         if (input.isEmpty())
             throw new MathException("Error: Expression string is empty");
@@ -165,7 +168,26 @@ public class MathUtilsImpl implements MathUtils {
 
         if (parenthesesCounter != 0)
             throw new MathException("Error: Parentheses error");
-        return sb.toString();
+
+        return Arrays.asList(sb.toString().split(" "));
     }
 
+    // to use ONLY with prepared expression String from previous function
+    @Override
+    public String devalueExpression(String input) {
+
+        return Stream.of(input.split(" "))
+                .map(s -> s.matches("[0-9.]*") ? "X" : s)
+                .collect(Collectors.joining(" "));
+    }
+
+    // to use ONLY with prepared expression String from previous function
+    @Override
+    public String evaluateExpression(Expression ex) {
+
+        return ex.getBody().stream()
+                .map(s -> s.matches("[0-9.]*") ? String.valueOf(((double) (int) (ThreadLocalRandom.current()
+                        .nextDouble(ex.getMin(), ex.getMax()) * Math.pow(10, ex.getRank()))) / Math.pow(10, ex.getRank())) : s)
+                .collect(Collectors.joining(" "));
+    }
 }

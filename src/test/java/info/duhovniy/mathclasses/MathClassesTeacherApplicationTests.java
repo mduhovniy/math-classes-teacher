@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import info.duhovniy.mathclasses.commons.MathException;
 import info.duhovniy.mathclasses.commons.MathUtils;
 import info.duhovniy.mathclasses.commons.MathUtilsImpl;
+import info.duhovniy.mathclasses.dto.Expression;
 import info.duhovniy.mathclasses.dto.Student;
 import info.duhovniy.mathclasses.services.StudentService;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -32,14 +34,21 @@ public class MathClassesTeacherApplicationTests {
 
     @Test
 	public void calculate() {
-        String infix = " 3*(5..+ 4  )/2 / 3  ";
+        String infix = "(    (3*(5.+ 4  )/2 )/ 3)  ";
         LOG.info("Infix: " + infix);
 
         try {
-            String preparedString = mathUtils.prepareString(infix);
-            LOG.info("Prepared string: " + preparedString);
-            LOG.info("Postfix: " + mathUtils.infixToPostfix(preparedString));
-            LOG.info("Result: " + mathUtils.expressionCounter(mathUtils.infixToPostfix(preparedString)));
+            List<String> preparedString = mathUtils.prepareString(infix);
+            LOG.info("Prepared string: " + preparedString.toString());
+            //LOG.info("Postfix: " + mathUtils.infixToPostfix(preparedString.toString()));
+            Expression ex = new Expression();
+            ex.setBody(preparedString);
+            ex.setMin(0);
+            ex.setMax(10);
+            ex.setRank(1);
+            //LOG.info("Result: " + mathUtils.expressionCounter(mathUtils.infixToPostfix(preparedString.toString())));
+            //LOG.info("Devalued string: " + mathUtils.devalueExpression(preparedString));
+            LOG.info("Evaluated string: " + mathUtils.evaluateExpression(ex));
         } catch (MathException e) {
             LOG.info(e.getMessage());
         }
