@@ -34,20 +34,20 @@ public class MathClassesTeacherApplicationTests {
 
     @Test
 	public void calculate() {
-        String infix = "(    (3*(5.+ 4  )/2 )/ 3)  ";
+        String infix = "(    (3*(5.+ 4  )/2 )/ 3) ";
         LOG.info("Infix: " + infix);
 
         try {
             List<String> preparedString = mathUtils.prepareString(infix);
             LOG.info("Prepared string: " + preparedString.toString());
-            //LOG.info("Postfix: " + mathUtils.infixToPostfix(preparedString.toString()));
+            LOG.info("Postfix: " + mathUtils.infixToPostfixList(preparedString));
             Expression ex = new Expression();
             ex.setBody(preparedString);
             ex.setMin(0);
             ex.setMax(10);
             ex.setRank(1);
             //LOG.info("Result: " + mathUtils.expressionCounter(mathUtils.infixToPostfix(preparedString.toString())));
-            //LOG.info("Devalued string: " + mathUtils.devalueExpression(preparedString));
+            mathUtils.devalueExpression(infix);
             LOG.info("Evaluated string: " + mathUtils.evaluateExpression(ex));
         } catch (MathException e) {
             LOG.info(e.getMessage());

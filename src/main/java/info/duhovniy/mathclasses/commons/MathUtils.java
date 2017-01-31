@@ -9,11 +9,13 @@ public interface MathUtils {
 
     String infixToPostfix(String infix);
 
+    List<String> infixToPostfixList(List<String> infix);
+
     List<String> prepareString(String input) throws MathException;
 
     double expressionCounter(String inputExpression);
 
-    String devalueExpression(String input);
+    void devalueExpression(String input);
 
     String evaluateExpression(Expression expression);
 }
