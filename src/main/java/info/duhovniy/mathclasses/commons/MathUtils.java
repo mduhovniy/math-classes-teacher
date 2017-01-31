@@ -13,9 +13,13 @@ public interface MathUtils {
 
     List<String> prepareString(String input) throws MathException;
 
-    double expressionCounter(String inputExpression);
+    double calculateExpression(List<String> inputExpression);
+
+    double calculateExpression(Expression inputExpression);
 
     void devalueExpression(String input);
 
     String evaluateExpression(Expression expression);
+
+    List<String> evaluateExpressionList(Expression expression);
 }

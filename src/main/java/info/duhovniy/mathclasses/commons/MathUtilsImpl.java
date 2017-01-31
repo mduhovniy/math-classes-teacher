@@ -13,8 +13,8 @@ import static java.lang.Double.valueOf;
 
 public class MathUtilsImpl implements MathUtils {
 
-    private Map<Character, Operator> map = new HashMap<>();
-    private String ops;
+    private final Map<Character, Operator> operatorHashMap = new HashMap<>();
+    private final String ops;
 
     public MathUtilsImpl() {
         StringBuilder sb = new StringBuilder();
@@ -22,7 +22,7 @@ public class MathUtilsImpl implements MathUtils {
         for (Operator o : Operator.values()) {
             System.out.println(o.toString() + " " + o.getSymbol() + " -> " + o.ordinal());
             sb.append(o.getSymbol());
-            map.put(o.getSymbol(), o);
+            operatorHashMap.put(o.getSymbol(), o);
         }
 
         ops = sb.toString();
@@ -70,6 +70,8 @@ public class MathUtilsImpl implements MathUtils {
         return sb.toString();
     }
 
+
+    // TODO: make private
     @Override
     public List<String> infixToPostfixList(List<String> infix) {
 
@@ -94,7 +96,7 @@ public class MathUtilsImpl implements MathUtils {
                         int prec2 = s.peek() / 2;
                         int prec1 = idx / 2;
                         if (prec2 > prec1 || (prec2 == prec1 && c != '^'))
-                            postfix.add(ops.charAt(s.pop()));
+                            postfix.add(String.valueOf(ops.charAt(s.pop())));
                         else break;
                     }
                     s.push(idx);
@@ -104,7 +106,7 @@ public class MathUtilsImpl implements MathUtils {
             } else if (c == ')') {
                 // until '(' on stack, pop operators.
                 while (s.peek() != -2)
-                    postfix.add(ops.charAt(s.pop()));
+                    postfix.add(String.valueOf(ops.charAt(s.pop())));
                 s.pop();
             } else {
                 postfix.add(token);
@@ -113,14 +115,31 @@ public class MathUtilsImpl implements MathUtils {
         return postfix;
     }
 
+    // to use ONLY on Postfix expression list
+    // TODO: delete from interface
     @Override
-    public double expressionCounter(String inputExpression) {
+    public double calculateExpression(List<String> input) {
         Stack<String> stack = new Stack<>();
-        for (String token : inputExpression.split("\\s")) {
-            if (map.containsKey(token.charAt(0))) {
+        for (String token : input) {
+            if (operatorHashMap.containsKey(token.charAt(0))) {
                 double y = valueOf(stack.pop());
                 double x = valueOf(stack.pop());
-                stack.push(String.valueOf(map.get(token.charAt(0)).getLambda().binary(x, y)));
+                stack.push(String.valueOf(operatorHashMap.get(token.charAt(0)).getLambda().binary(x, y)));
+            } else {
+                stack.push(token);
+            }
+        }
+        return valueOf(stack.pop());
+    }
+
+    @Override
+    public double calculateExpression(Expression input) {
+        Stack<String> stack = new Stack<>();
+        for (String token : infixToPostfixList(input.getBody())) {
+            if (operatorHashMap.containsKey(token.charAt(0))) {
+                double y = valueOf(stack.pop());
+                double x = valueOf(stack.pop());
+                stack.push(String.valueOf(operatorHashMap.get(token.charAt(0)).getLambda().binary(x, y)));
             } else {
                 stack.push(token);
             }
@@ -136,7 +155,7 @@ public class MathUtilsImpl implements MathUtils {
 
         input = input.trim();
 
-        if (map.containsKey(input.charAt(0)) || map.containsKey(input.charAt(input.length() - 1)))
+        if (operatorHashMap.containsKey(input.charAt(0)) || operatorHashMap.containsKey(input.charAt(input.length() - 1)))
             throw new MathException("Error: Expression string cannot start or end with operator");
 
         StringBuilder sb = new StringBuilder();
@@ -194,7 +213,7 @@ public class MathUtilsImpl implements MathUtils {
                 }
             }
 
-            if (map.containsKey(c)) {
+            if (operatorHashMap.containsKey(c)) {
                 if (wasOperator) {
                     throw new MathException("Error: Two operators together");
                 }
@@ -220,7 +239,7 @@ public class MathUtilsImpl implements MathUtils {
     public void devalueExpression(String input) {
 
         Pattern.compile(" ").splitAsStream(input).forEach(System.out::println);
-        //.map(s -> s.matches("[0-9.]*") ? "X" : s)
+        //.operatorHashMap(s -> s.matches("[0-9.]*") ? "X" : s)
         //.collect(Collectors.joining(" "));
     }
 
@@ -232,5 +251,14 @@ public class MathUtilsImpl implements MathUtils {
                 .map(s -> s.matches("[0-9.]*") ? String.valueOf(((double) (int) (ThreadLocalRandom.current()
                         .nextDouble(ex.getMin(), ex.getMax()) * Math.pow(10, ex.getRank()))) / Math.pow(10, ex.getRank())) : s)
                 .collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public List<String> evaluateExpressionList(Expression ex) {
+
+        return ex.getBody().stream()
+                .map(s -> s.matches("[0-9.]*") ? String.valueOf(((double) (int) (ThreadLocalRandom.current()
+                        .nextDouble(ex.getMin(), ex.getMax()) * Math.pow(10, ex.getRank()))) / Math.pow(10, ex.getRank())) : s)
+                .collect(Collectors.toList());
     }
 }

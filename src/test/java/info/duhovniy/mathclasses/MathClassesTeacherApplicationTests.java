@@ -38,17 +38,21 @@ public class MathClassesTeacherApplicationTests {
         LOG.info("Infix: " + infix);
 
         try {
-            List<String> preparedString = mathUtils.prepareString(infix);
-            LOG.info("Prepared string: " + preparedString.toString());
-            LOG.info("Postfix: " + mathUtils.infixToPostfixList(preparedString));
+            List<String> preparedList = mathUtils.prepareString(infix);
+            LOG.info("Prepared list: " + preparedList);
+            LOG.info("Postfix list: " + mathUtils.infixToPostfixList(preparedList));
             Expression ex = new Expression();
-            ex.setBody(preparedString);
+            ex.setBody(preparedList);
             ex.setMin(0);
-            ex.setMax(10);
-            ex.setRank(1);
-            //LOG.info("Result: " + mathUtils.expressionCounter(mathUtils.infixToPostfix(preparedString.toString())));
-            mathUtils.devalueExpression(infix);
+            ex.setMax(15);
+            ex.setRank(2);
+            LOG.info("Result from string: " + mathUtils.calculateExpression(mathUtils.infixToPostfixList(preparedList)));
+            LOG.info("Result from expression: " + mathUtils.calculateExpression(ex));
+
             LOG.info("Evaluated string: " + mathUtils.evaluateExpression(ex));
+            LOG.info("Evaluated list: " + mathUtils.evaluateExpressionList(ex));
+            // TODO: deprecate
+            mathUtils.devalueExpression(infix);
         } catch (MathException e) {
             LOG.info(e.getMessage());
         }
