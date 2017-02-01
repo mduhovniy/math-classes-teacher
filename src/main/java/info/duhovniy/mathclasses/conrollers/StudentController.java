@@ -14,9 +14,9 @@ public interface StudentController {
 
     void deleteStudent(Student student);
 
-    Student findStudentByName(String name);
+    Student getStudentByName(String name);
 
-    Student findStudentById(String id);
+    Student getStudentById(String id);
 
-    List<Student> findAllStudents();
+    List<Student> getAllStudents();
 }

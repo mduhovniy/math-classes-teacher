@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StudentControllerImpl implements StudentController {
 
-    private StudentService studentService;
+    private final StudentService studentService;
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
@@ -35,19 +35,19 @@ public class StudentControllerImpl implements StudentController {
 
     @Override
     @RequestMapping(method = RequestMethod.GET)
-    public List<Student> findAllStudents() {
+    public List<Student> getAllStudents() {
         return studentService.findAllStudents();
     }
 
     @Override
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public Student findStudentByName(@PathVariable("name") String name) {
+    public Student getStudentByName(@PathVariable("name") String name) {
         return studentService.findStudentByName(name);
     }
 
     @Override
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    public Student findStudentById(@PathVariable("id") String id) {
+    public Student getStudentById(@PathVariable("id") String id) {
         return studentService.findStudentById(id);
     }
 }

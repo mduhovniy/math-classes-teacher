@@ -1,6 +1,7 @@
 package info.duhovniy.mathclasses.services;
 
 
+import info.duhovniy.mathclasses.commons.MathException;
 import info.duhovniy.mathclasses.dto.Expression;
 
 import java.util.List;
@@ -10,6 +11,8 @@ public interface ExpressionService {
     Expression createExpression(Expression expression);
 
     Expression updateExpression(Expression expression);
+
+    List<String> parseExpressionBody(String body) throws MathException;
 
     void deleteExpression(Expression expression);
 

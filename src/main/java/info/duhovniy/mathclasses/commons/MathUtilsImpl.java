@@ -2,6 +2,7 @@ package info.duhovniy.mathclasses.commons;
 
 
 import info.duhovniy.mathclasses.dto.Expression;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 import static java.lang.Double.valueOf;
 
 
+@Component
 public class MathUtilsImpl implements MathUtils {
 
     private final Map<Character, Operator> operatorHashMap = new HashMap<>();

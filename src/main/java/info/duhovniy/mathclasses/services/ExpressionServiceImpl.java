@@ -1,6 +1,8 @@
 package info.duhovniy.mathclasses.services;
 
 
+import info.duhovniy.mathclasses.commons.MathException;
+import info.duhovniy.mathclasses.commons.MathUtils;
 import info.duhovniy.mathclasses.dao.ExpressionRepository;
 import info.duhovniy.mathclasses.dto.Expression;
 import lombok.AllArgsConstructor;
@@ -14,6 +16,8 @@ public class ExpressionServiceImpl implements ExpressionService {
 
     private ExpressionRepository expressionRepository;
 
+    private final MathUtils mathUtils;
+
     @Override
     public Expression createExpression(Expression expression) {
         return expressionRepository.insert(expression);
@@ -22,6 +26,11 @@ public class ExpressionServiceImpl implements ExpressionService {
     @Override
     public Expression updateExpression(Expression expression) {
         return expressionRepository.save(expression);
+    }
+
+    @Override
+    public List<String> parseExpressionBody(String body) throws MathException {
+        return mathUtils.prepareString(body);
     }
 
     @Override
