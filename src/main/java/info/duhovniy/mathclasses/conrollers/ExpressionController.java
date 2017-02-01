@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ExpressionController {
 
-    Expression createExpression(Expression expression);
+    ResponseEntity<Expression> createExpression(Expression expression);
 
     ResponseEntity<Expression> updateExpression(Expression expression);
 

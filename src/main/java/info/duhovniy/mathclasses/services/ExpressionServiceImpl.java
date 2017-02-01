@@ -14,23 +14,32 @@ import java.util.List;
 @AllArgsConstructor
 public class ExpressionServiceImpl implements ExpressionService {
 
-    private ExpressionRepository expressionRepository;
+    private final ExpressionRepository expressionRepository;
 
     private final MathUtils mathUtils;
 
     @Override
     public Expression createExpression(Expression expression) {
+        // TODO: check for right calculation of new expression
+
         return expressionRepository.insert(expression);
     }
 
     @Override
     public Expression updateExpression(Expression expression) {
+        // TODO: check for right calculation of new expression
+
         return expressionRepository.save(expression);
     }
 
-    @Override
-    public List<String> parseExpressionBody(String body) throws MathException {
+    private List<String> parseExpressionBody(String body) throws MathException {
         return mathUtils.prepareString(body);
+    }
+
+    @Override
+    public Boolean validateExpression(Expression expression) {
+
+        return null;
     }
 
     @Override
