@@ -118,7 +118,7 @@ public class MathUtilsImpl implements MathUtils {
     }
 
     // to use ONLY on Postfix expression list
-    // TODO: delete from interface
+    // TODO: delete after test
     @Override
     public double calculateExpression(List<String> input) {
         Stack<String> stack = new Stack<>();

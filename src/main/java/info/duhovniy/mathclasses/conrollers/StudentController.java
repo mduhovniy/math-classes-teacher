@@ -12,7 +12,7 @@ public interface StudentController {
 
     Student updateStudent(Student student);
 
-    void deleteStudent(Student student);
+    void deleteStudentById(String id);
 
     Student getStudentByName(String name);
 

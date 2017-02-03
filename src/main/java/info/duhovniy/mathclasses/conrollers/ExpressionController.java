@@ -12,9 +12,11 @@ public interface ExpressionController {
 
     ResponseEntity<Expression> updateExpression(Expression expression);
 
-    void deleteExpression(Expression expression);
+    void deleteExpression(String id);
 
     ResponseEntity<Expression> getRandomExpression(String name);
 
-    ResponseEntity<List<Expression>> getAllExpressions();
+    List<Expression> getAllExpressions();
+
+    ResponseEntity<List<String>> prepareExpression(String input);
 }

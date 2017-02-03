@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
 
-    private TeacherRepository teacherRepository;
+    private final TeacherRepository teacherRepository;
 
     @Override
     public Teacher createTeacher(Teacher teacher) {

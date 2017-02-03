@@ -45,7 +45,7 @@ public class MathClassesTeacherApplicationTests {
             ex.setBody(preparedList);
             ex.setMin(0);
             ex.setMax(15);
-            ex.setRank(2);
+            //ex.setRank(2);
             LOG.info("Result from list: " + mathUtils.calculateExpression(mathUtils.infixToPostfixList(preparedList)));
             LOG.info("Result from expression: " + mathUtils.calculateExpression(ex));
 

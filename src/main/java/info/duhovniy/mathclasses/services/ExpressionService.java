@@ -1,6 +1,7 @@
 package info.duhovniy.mathclasses.services;
 
 
+import info.duhovniy.mathclasses.commons.MathException;
 import info.duhovniy.mathclasses.dto.Expression;
 
 import java.util.List;
@@ -11,13 +12,15 @@ public interface ExpressionService {
 
     Expression updateExpression(Expression expression);
 
-    void deleteExpression(Expression expression);
+    void deleteExpression(String id);
 
     Expression findExpressionById(String id);
 
     List<Expression> findAllExpressions();
 
-    String fillExpression(Expression expression);
+    Boolean isExpressionValid(Expression expression);
 
-    Boolean validateExpression(Expression expression);
+    // move to separate service???
+    List<String> prepareExpression(String input) throws MathException;
+
 }

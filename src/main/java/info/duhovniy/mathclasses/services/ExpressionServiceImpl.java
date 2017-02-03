@@ -20,31 +20,32 @@ public class ExpressionServiceImpl implements ExpressionService {
 
     @Override
     public Expression createExpression(Expression expression) {
-        // TODO: check for right calculation of new expression
-
         return expressionRepository.insert(expression);
     }
 
     @Override
     public Expression updateExpression(Expression expression) {
-        // TODO: check for right calculation of new expression
-
         return expressionRepository.save(expression);
     }
 
-    private List<String> parseExpressionBody(String body) throws MathException {
-        return mathUtils.prepareString(body);
+    @Override
+    public Boolean isExpressionValid(Expression expression) {
+        try {
+            mathUtils.calculateExpression(expression);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
-    public Boolean validateExpression(Expression expression) {
-
-        return null;
+    public List<String> prepareExpression(String input) throws MathException {
+        return mathUtils.prepareString(input);
     }
 
     @Override
-    public void deleteExpression(Expression expression) {
-        expressionRepository.delete(expression);
+    public void deleteExpression(String id) {
+        expressionRepository.delete(id);
     }
 
     @Override
@@ -55,10 +56,5 @@ public class ExpressionServiceImpl implements ExpressionService {
     @Override
     public List<Expression> findAllExpressions() {
         return expressionRepository.findAll();
-    }
-
-    @Override
-    public String fillExpression(Expression expression) {
-        return null;
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     @Override
     public Student createStudent(Student student) {
@@ -24,8 +24,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteStudent(Student student) {
-        studentRepository.delete(student);
+    public void deleteStudentById(String id) {
+        studentRepository.delete(id);
     }
 
     @Override

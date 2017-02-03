@@ -5,6 +5,7 @@ import info.duhovniy.mathclasses.services.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -17,20 +18,20 @@ public class StudentControllerImpl implements StudentController {
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    public Student createStudent(@RequestBody Student student) {
+    public Student createStudent(@Valid @RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
     @Override
     @RequestMapping(method = RequestMethod.PUT)
-    public Student updateStudent(@RequestBody Student student) {
+    public Student updateStudent(@Valid @RequestBody Student student) {
         return studentService.updateStudent(student);
     }
 
     @Override
     @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteStudent(Student student) {
-        studentService.deleteStudent(student);
+    public void deleteStudentById(String id) {
+        studentService.deleteStudentById(id);
     }
 
     @Override

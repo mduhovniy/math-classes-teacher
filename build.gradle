@@ -41,6 +41,7 @@ dependencies {
 	//compile('org.springframework.boot:spring-boot-starter-mail')
 	//compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	//compile('org.hibernate:hibernate-validator')
 	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')

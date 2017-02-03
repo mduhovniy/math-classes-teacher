@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LevelServiceImpl implements LevelService {
 
-    private LevelRepository levelRepository;
+    private final LevelRepository levelRepository;
 
     @Override
     public Level createLevel(Level level) {
