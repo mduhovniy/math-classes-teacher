@@ -14,9 +14,11 @@ public interface ExpressionController {
 
     void deleteExpression(String id);
 
-    ResponseEntity<Expression> getRandomExpression(String name);
+    ResponseEntity<Expression> getRandomExpression(String levelName);
 
     List<Expression> getAllExpressions();
+
+    Expression getExpressionById(String id);
 
     ResponseEntity<List<String>> prepareExpression(String input);
 }

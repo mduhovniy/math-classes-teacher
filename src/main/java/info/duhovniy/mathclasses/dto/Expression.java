@@ -27,15 +27,15 @@ public class Expression {
     private int maxTimeInSeconds;
 
     // Expression Pattern
-    @NotEmpty(message = "Error: Expression can not be empty")
+    @NotEmpty(message = "Error: Expression could not be empty")
     private List<String> body;
 
     // Range of random expression parameters
-    @NotEmpty(message = "Error: Min range of expression param can not be NULL")
+    @NotEmpty(message = "Error: Min range of expression param could not be NULL")
     private int min;
-    @NotEmpty(message = "Error: Max range of expression param can not be NULL")
+    @NotEmpty(message = "Error: Max range of expression param could not be NULL")
     private int max;
     // Number of digits after dot, NULL == 0
-    @Min(value = 0, message = "Error: Rank should not be < 0")
+    @Min(value = 0, message = "Error: Rank should be >= 0")
     private int rank;
 }

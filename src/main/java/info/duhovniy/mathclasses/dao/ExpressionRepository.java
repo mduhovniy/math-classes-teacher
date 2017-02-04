@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ExpressionRepository extends MongoRepository<Expression, String>{
+
+    Long countByLevelName(String levelName);
 }

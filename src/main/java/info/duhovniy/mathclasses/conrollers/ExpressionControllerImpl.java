@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.xml.ws.WebServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,14 +50,27 @@ public class ExpressionControllerImpl implements ExpressionController {
 
     @Override
     @RequestMapping(value = "/random", method = RequestMethod.GET)
-    public ResponseEntity<Expression> getRandomExpression(String name) {
-        return null;
+    public ResponseEntity<Expression> getRandomExpression(String levelName) {
+
+        Expression randomExpression;
+        try {
+            randomExpression = expressionService.getRandomExpression(levelName);
+            return new ResponseEntity<>(randomExpression, HttpStatus.OK);
+        } catch (WebServiceException e) {
+            // sending error code 422
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Expression> getAllExpressions() {
         return expressionService.findAllExpressions();
+    }
+
+    @Override
+    public Expression getExpressionById(String id) {
+        return expressionService.findExpressionById(id);
     }
 
     @Override
