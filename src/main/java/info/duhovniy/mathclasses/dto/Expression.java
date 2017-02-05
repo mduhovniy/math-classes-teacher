@@ -20,6 +20,7 @@ public class Expression {
     private String levelName;
 
     // Rating within Level
+    @Min(value = 1, message = "Error: Rating should be > 0")
     private int rating;
 
     // time limit for solution

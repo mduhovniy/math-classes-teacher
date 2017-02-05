@@ -14,8 +14,9 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
-import javax.xml.ws.WebServiceException;
 import java.util.List;
+
+import static jdk.nashorn.internal.objects.Global.Infinity;
 
 @Service
 @AllArgsConstructor
@@ -40,8 +41,8 @@ public class ExpressionServiceImpl implements ExpressionService {
     @Override
     public Boolean isExpressionValid(Expression expression) {
         try {
-            mathUtils.calculateExpression(expression);
-            return true;
+            Double x = mathUtils.calculateExpression(expression);
+            return !(x == Infinity);
         } catch (Exception e) {
             return false;
         }
@@ -53,7 +54,7 @@ public class ExpressionServiceImpl implements ExpressionService {
     }
 
     @Override
-    public Expression getRandomExpression(String levelName) throws WebServiceException {
+    public Expression getRandomExpression(String levelName) throws RuntimeException {
         Aggregation aggregation = Aggregation.newAggregation(
                 // Standard match pipeline stage
                 Aggregation.match(
@@ -63,19 +64,20 @@ public class ExpressionServiceImpl implements ExpressionService {
                 new CustomAggregationOperation(
                         new BasicDBObject(
                                 "$sample",
-                                new BasicDBObject("size", 15)
+                                new BasicDBObject("size", 1)
                         )
                 )
         );
 
         AggregationResults<Expression> groupResults
                 = mongoTemplate.aggregate(aggregation, Expression.class, Expression.class);
-        List<Expression> result = groupResults.getMappedResults();
+        Expression result = groupResults.getUniqueMappedResult();
 
-        if (result.isEmpty())
-            throw new WebServiceException("Error: Requested Level is absent");
+        // TODO: test for result payload when its empty
+        if (result.getBody().isEmpty())
+            throw new RuntimeException("Error: Requested Level is absent");
         else
-            return result.get(0);
+            return result;
     }
 
     @Override

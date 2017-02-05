@@ -57,7 +57,7 @@ public class ExpressionControllerImpl implements ExpressionController {
             randomExpression = expressionService.getRandomExpression(levelName);
             return new ResponseEntity<>(randomExpression, HttpStatus.OK);
         } catch (WebServiceException e) {
-            // sending error code 422
+            // sending error code 422 - means NO Expressions found in this Level
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -81,7 +81,7 @@ public class ExpressionControllerImpl implements ExpressionController {
             return new ResponseEntity<>(expression, HttpStatus.OK);
         } catch (MathException e) {
             // sending error description in first element of list together with error code 422
-            expression.add(e.toString());
+            expression.add(e.getMessage());
             return new ResponseEntity<>(expression, HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }

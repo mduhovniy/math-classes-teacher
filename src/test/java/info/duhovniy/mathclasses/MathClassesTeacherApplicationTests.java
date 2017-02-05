@@ -21,6 +21,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static jdk.nashorn.internal.objects.Global.Infinity;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -34,7 +36,7 @@ public class MathClassesTeacherApplicationTests {
 
     @Test
 	public void calculate() {
-        String infix = "(    (3*(5.+ 4  )/2 )/ 3) ";
+        String infix = "(    (3*(5.+ 4  )/2 )/ 2) ";
         LOG.info("Infix: " + infix);
 
         try {
@@ -47,7 +49,8 @@ public class MathClassesTeacherApplicationTests {
             ex.setMax(15);
             //ex.setRank(2);
             LOG.info("Result from list: " + mathUtils.calculateExpression(mathUtils.infixToPostfixList(preparedList)));
-            LOG.info("Result from expression: " + mathUtils.calculateExpression(ex));
+            double x = mathUtils.calculateExpression(ex);
+            LOG.info("Result from expression: " + !(x == Infinity));
 
             LOG.info("Evaluated string: " + mathUtils.evaluateExpression(ex));
             LOG.info("Evaluated list: " + mathUtils.evaluateExpressionList(ex));
