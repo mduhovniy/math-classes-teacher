@@ -22,11 +22,11 @@ public class Expression {
 
     // Rating within Level
     @Min(value = 1, message = "Error: Rating should be > 0")
-    private Integer rating;
+    private int rating;
 
     // time limit for solution
     @NotNull(message = "Error: Max time in seconds for solution expected")
-    private Integer maxTimeInSeconds;
+    private int maxTimeInSeconds;
 
     // Expression Pattern
     @NotEmpty(message = "Error: Expression could not be empty")
@@ -34,10 +34,12 @@ public class Expression {
 
     // Range of random expression parameters
     @NotNull(message = "Error: Min range of expression param could not be NULL")
-    private Integer min;
+    private int min;
     @NotNull(message = "Error: Max range of expression param could not be NULL")
-    private Integer max;
+    private int max;
     // Number of digits after dot, NULL == 0
     @Min(value = 0, message = "Error: Rank should be >= 0")
-    private Integer rank;
+    private int rank;
+    // Temporary field for result of evaluated expression to verify on client
+    private double tempResult;
 }

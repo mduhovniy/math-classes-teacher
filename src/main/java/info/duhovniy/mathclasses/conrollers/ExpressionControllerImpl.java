@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.ws.WebServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +52,8 @@ public class ExpressionControllerImpl implements ExpressionController {
         try {
             randomExpression = expressionService.getRandomExpression(levelName);
             return new ResponseEntity<>(randomExpression, HttpStatus.OK);
-        } catch (WebServiceException e) {
-            // sending error code 422 - means NO Expressions found in this Level
+        } catch (RuntimeException e) {
+            // sending error code 404 - means NO Expressions found in this Level
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

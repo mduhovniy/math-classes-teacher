@@ -67,8 +67,20 @@ public class ExpressionServiceImpl implements ExpressionService {
 
         if (result == null)
             throw new RuntimeException("Error: Requested Level is absent");
-        else
-            return result;
+        else {
+
+            // Evaluation according inner criteria
+            while (true) {
+                try {
+                    result = mathUtils.evaluateExpressionToExpression(result);
+                    double tempResult = mathUtils.calculateExpression(result);
+                    result.setTempResult(tempResult);
+                    return result;
+                } catch (MathException e) {
+                    System.out.println(e.getMessage() + " Lets try again;)");
+                }
+            }
+        }
     }
 
     @Override

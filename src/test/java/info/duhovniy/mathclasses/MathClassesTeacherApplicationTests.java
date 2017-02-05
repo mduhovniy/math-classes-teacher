@@ -56,6 +56,7 @@ public class MathClassesTeacherApplicationTests {
 
             LOG.info("Evaluated string: " + mathUtils.evaluateExpressionToString(ex));
             LOG.info("Evaluated list: " + mathUtils.evaluateExpressionToList(ex));
+            LOG.info("Evaluated list: " + mathUtils.evaluateExpressionToExpression(ex));
             // TODO: deprecate
             mathUtils.devalueExpression(infix);
         } catch (MathException e) {
@@ -96,13 +97,13 @@ public class MathClassesTeacherApplicationTests {
 
         Expression exp = new Expression();
 
-        exp.setBody(expressionService.prepareExpression("3* 7*(3-5/2)^2"));
-        exp.setLevelName("level3");
-        exp.setMax(100);
+        exp.setBody(expressionService.prepareExpression("3 * 7 + 5/2"));
+        exp.setLevelName("level1");
+        exp.setMax(10);
         exp.setMin(0);
         exp.setMaxTimeInSeconds(60);
         exp.setRank(0);
-        exp.setRating(1);
+        exp.setRating(5);
 
         expressionService.createExpression(exp);
     }

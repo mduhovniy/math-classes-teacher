@@ -270,4 +270,13 @@ public class MathUtilsImpl implements MathUtils {
                         .nextDouble(ex.getMin(), ex.getMax()) * Math.pow(10, ex.getRank()))) / Math.pow(10, ex.getRank())) : s)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Expression evaluateExpressionToExpression(Expression expression) {
+
+        expression.setBody(evaluateExpressionToList(expression));
+        return expression;
+    }
+
+
 }

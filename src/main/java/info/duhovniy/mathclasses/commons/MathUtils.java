@@ -22,4 +22,6 @@ public interface MathUtils {
     String evaluateExpressionToString(Expression expression);
 
     List<String> evaluateExpressionToList(Expression expression);
+
+    Expression evaluateExpressionToExpression(Expression expression);
 }
