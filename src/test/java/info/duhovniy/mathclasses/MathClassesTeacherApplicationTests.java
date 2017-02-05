@@ -7,6 +7,7 @@ import info.duhovniy.mathclasses.commons.MathUtils;
 import info.duhovniy.mathclasses.commons.MathUtilsImpl;
 import info.duhovniy.mathclasses.dto.Expression;
 import info.duhovniy.mathclasses.dto.Student;
+import info.duhovniy.mathclasses.services.ExpressionService;
 import info.duhovniy.mathclasses.services.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,8 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static jdk.nashorn.internal.objects.Global.Infinity;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -34,9 +33,12 @@ public class MathClassesTeacherApplicationTests {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private ExpressionService expressionService;
+
     @Test
 	public void calculate() {
-        String infix = "(    (3*(5.+ 4  )/2 )/ 2) ";
+        String infix = "  3* 7*( 3-5/2)^   2 ";
         LOG.info("Infix: " + infix);
 
         try {
@@ -45,15 +47,15 @@ public class MathClassesTeacherApplicationTests {
             LOG.info("Postfix list: " + mathUtils.infixToPostfixList(preparedList));
             Expression ex = new Expression();
             ex.setBody(preparedList);
-            ex.setMin(0);
-            ex.setMax(15);
-            //ex.setRank(2);
+            ex.setMin(-50);
+            ex.setMax(50);
+            ex.setRank(1);
             LOG.info("Result from list: " + mathUtils.calculateExpression(mathUtils.infixToPostfixList(preparedList)));
             double x = mathUtils.calculateExpression(ex);
-            LOG.info("Result from expression: " + !(x == Infinity));
+            LOG.info("Result from expression: " + x);
 
-            LOG.info("Evaluated string: " + mathUtils.evaluateExpression(ex));
-            LOG.info("Evaluated list: " + mathUtils.evaluateExpressionList(ex));
+            LOG.info("Evaluated string: " + mathUtils.evaluateExpressionToString(ex));
+            LOG.info("Evaluated list: " + mathUtils.evaluateExpressionToList(ex));
             // TODO: deprecate
             mathUtils.devalueExpression(infix);
         } catch (MathException e) {
@@ -62,7 +64,7 @@ public class MathClassesTeacherApplicationTests {
     }
 
 	@Test
-    public void writeToMongo() {
+    public void writeStudentToMongo() {
         Map<String, Boolean> map = new LinkedHashMap<>();
         map.put("Expression1", true);
         map.put("Expression2", false);
@@ -71,9 +73,9 @@ public class MathClassesTeacherApplicationTests {
 
         Student student = new Student();
 
-        student.setName("Igor");
-        student.setEmail("igor@gmail.com");
-        student.setTotalRating(10);
+        student.setName("Leo");
+        student.setEmail("leo@gmail.com");
+        student.setTotalRating(5);
         student.setLastTrainingDate(new Date());
         student.setLastLevelName("leve3");
         student.setExpressionHistory(map);
@@ -87,5 +89,21 @@ public class MathClassesTeacherApplicationTests {
             e.printStackTrace();
         }
         LOG.info(json);
+    }
+
+    @Test
+    public void writeExpressionToMongo() throws MathException {
+
+        Expression exp = new Expression();
+
+        exp.setBody(expressionService.prepareExpression("3* 7*(3-5/2)^2"));
+        exp.setLevelName("level3");
+        exp.setMax(100);
+        exp.setMin(0);
+        exp.setMaxTimeInSeconds(60);
+        exp.setRank(0);
+        exp.setRating(1);
+
+        expressionService.createExpression(exp);
     }
 }

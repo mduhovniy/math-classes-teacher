@@ -15,11 +15,11 @@ public interface MathUtils {
 
     double calculateExpression(List<String> inputExpression);
 
-    double calculateExpression(Expression inputExpression);
+    double calculateExpression(Expression inputExpression) throws MathException;
 
     void devalueExpression(String input);
 
-    String evaluateExpression(Expression expression);
+    String evaluateExpressionToString(Expression expression);
 
-    List<String> evaluateExpressionList(Expression expression);
+    List<String> evaluateExpressionToList(Expression expression);
 }

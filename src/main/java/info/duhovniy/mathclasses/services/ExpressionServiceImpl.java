@@ -1,8 +1,7 @@
 package info.duhovniy.mathclasses.services;
 
 
-import com.mongodb.BasicDBObject;
-import info.duhovniy.mathclasses.commons.CustomAggregationOperation;
+import info.duhovniy.mathclasses.commons.CustomSampleOperation;
 import info.duhovniy.mathclasses.commons.MathException;
 import info.duhovniy.mathclasses.commons.MathUtils;
 import info.duhovniy.mathclasses.dao.ExpressionRepository;
@@ -15,8 +14,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static jdk.nashorn.internal.objects.Global.Infinity;
 
 @Service
 @AllArgsConstructor
@@ -41,8 +38,8 @@ public class ExpressionServiceImpl implements ExpressionService {
     @Override
     public Boolean isExpressionValid(Expression expression) {
         try {
-            Double x = mathUtils.calculateExpression(expression);
-            return !(x == Infinity);
+            mathUtils.calculateExpression(expression);
+            return true;
         } catch (Exception e) {
             return false;
         }
@@ -61,20 +58,14 @@ public class ExpressionServiceImpl implements ExpressionService {
                         Criteria.where("levelName").is(levelName)
                 ),
                 // custom pipeline stage
-                new CustomAggregationOperation(
-                        new BasicDBObject(
-                                "$sample",
-                                new BasicDBObject("size", 1)
-                        )
-                )
+                new CustomSampleOperation(1)
         );
 
         AggregationResults<Expression> groupResults
                 = mongoTemplate.aggregate(aggregation, Expression.class, Expression.class);
         Expression result = groupResults.getUniqueMappedResult();
 
-        // TODO: test for result payload when its empty
-        if (result.getBody().isEmpty())
+        if (result == null)
             throw new RuntimeException("Error: Requested Level is absent");
         else
             return result;

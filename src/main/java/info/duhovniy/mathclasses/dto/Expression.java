@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -21,22 +22,22 @@ public class Expression {
 
     // Rating within Level
     @Min(value = 1, message = "Error: Rating should be > 0")
-    private int rating;
+    private Integer rating;
 
     // time limit for solution
-    @NotEmpty(message = "Error: Max time in seconds for solution expected")
-    private int maxTimeInSeconds;
+    @NotNull(message = "Error: Max time in seconds for solution expected")
+    private Integer maxTimeInSeconds;
 
     // Expression Pattern
     @NotEmpty(message = "Error: Expression could not be empty")
     private List<String> body;
 
     // Range of random expression parameters
-    @NotEmpty(message = "Error: Min range of expression param could not be NULL")
-    private int min;
-    @NotEmpty(message = "Error: Max range of expression param could not be NULL")
-    private int max;
+    @NotNull(message = "Error: Min range of expression param could not be NULL")
+    private Integer min;
+    @NotNull(message = "Error: Max range of expression param could not be NULL")
+    private Integer max;
     // Number of digits after dot, NULL == 0
     @Min(value = 0, message = "Error: Rank should be >= 0")
-    private int rank;
+    private Integer rank;
 }

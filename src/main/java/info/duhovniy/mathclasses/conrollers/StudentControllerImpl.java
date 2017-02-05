@@ -10,44 +10,44 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/student")
 @AllArgsConstructor
 public class StudentControllerImpl implements StudentController {
 
     private final StudentService studentService;
 
     @Override
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public Student createStudent(@Valid @RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
     public Student updateStudent(@Valid @RequestBody Student student) {
         return studentService.updateStudent(student);
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteStudentById(String id) {
+    @DeleteMapping
+    public void deleteStudentById(@RequestParam String id) {
         studentService.deleteStudentById(id);
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<Student> getAllStudents() {
         return studentService.findAllStudents();
     }
 
     @Override
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    @GetMapping(value = "/name/{name}")
     public Student getStudentByName(@PathVariable("name") String name) {
         return studentService.findStudentByName(name);
     }
 
     @Override
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/id/{id}")
     public Student getStudentById(@PathVariable("id") String id) {
         return studentService.findStudentById(id);
     }

@@ -7,10 +7,7 @@ import info.duhovniy.mathclasses.services.ExpressionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.xml.ws.WebServiceException;
@@ -25,7 +22,7 @@ public class ExpressionControllerImpl implements ExpressionController {
     private final ExpressionService expressionService;
 
     @Override
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Expression> createExpression(@Valid @RequestBody Expression expression) {
         if (expressionService.isExpressionValid(expression))
             return new ResponseEntity<>(expressionService.createExpression(expression), HttpStatus.OK);
@@ -34,7 +31,7 @@ public class ExpressionControllerImpl implements ExpressionController {
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
     public ResponseEntity<Expression> updateExpression(@Valid @RequestBody Expression expression) {
         if (expressionService.isExpressionValid(expression))
             return new ResponseEntity<>(expressionService.updateExpression(expression), HttpStatus.OK);
@@ -43,14 +40,14 @@ public class ExpressionControllerImpl implements ExpressionController {
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteExpression(String id) {
+    @DeleteMapping
+    public void deleteExpression(@RequestParam String id) {
         expressionService.deleteExpression(id);
     }
 
     @Override
-    @RequestMapping(value = "/random", method = RequestMethod.GET)
-    public ResponseEntity<Expression> getRandomExpression(String levelName) {
+    @GetMapping(value = "/random/{level}")
+    public ResponseEntity<Expression> getRandomExpression(@PathVariable("level") String levelName) {
 
         Expression randomExpression;
         try {
@@ -63,18 +60,20 @@ public class ExpressionControllerImpl implements ExpressionController {
     }
 
     @Override
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public List<Expression> getAllExpressions() {
         return expressionService.findAllExpressions();
     }
 
     @Override
-    public Expression getExpressionById(String id) {
+    @GetMapping(value = "/id/{id}")
+    public Expression getExpressionById(@PathVariable("id") String id) {
         return expressionService.findExpressionById(id);
     }
 
     @Override
-    public ResponseEntity<List<String>> prepareExpression(String input) {
+    @PostMapping(value = "/prepare")
+    public ResponseEntity<List<String>> prepareExpression(@RequestBody String input) {
         List<String> expression = new ArrayList<>();
         try {
             expression = expressionService.prepareExpression(input);

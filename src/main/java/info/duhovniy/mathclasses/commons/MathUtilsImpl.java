@@ -22,11 +22,14 @@ public class MathUtilsImpl implements MathUtils {
         StringBuilder sb = new StringBuilder();
 
         for (Operator o : Operator.values()) {
+            // TODO: remove in production
             System.out.println(o.toString() + " " + o.getSymbol() + " -> " + o.ordinal());
             sb.append(o.getSymbol());
+
             operatorHashMap.put(o.getSymbol(), o);
         }
 
+        // TODO: delete - use operatorHashMap instead of it
         ops = sb.toString();
     }
 
@@ -114,6 +117,8 @@ public class MathUtilsImpl implements MathUtils {
                 postfix.add(token);
             }
         }
+        while (!s.isEmpty())
+            postfix.add(String.valueOf(ops.charAt(s.pop())));
         return postfix;
     }
 
@@ -135,12 +140,14 @@ public class MathUtilsImpl implements MathUtils {
     }
 
     @Override
-    public double calculateExpression(Expression input) {
+    public double calculateExpression(Expression input) throws MathException {
         Stack<String> stack = new Stack<>();
         for (String token : infixToPostfixList(input.getBody())) {
             if (operatorHashMap.containsKey(token.charAt(0))) {
                 double y = valueOf(stack.pop());
                 double x = valueOf(stack.pop());
+                if (operatorHashMap.get(token.charAt(0)).compareTo(Operator.DIVIDE) == 0 && y == 0)
+                    throw new MathException("Error: Divide by ZERO");
                 stack.push(String.valueOf(operatorHashMap.get(token.charAt(0)).getLambda().binary(x, y)));
             } else {
                 stack.push(token);
@@ -236,7 +243,7 @@ public class MathUtilsImpl implements MathUtils {
         return Arrays.asList(sb.toString().split(" "));
     }
 
-    // to use ONLY with prepared expression String from previous function
+    // TODO: just an example of Split Pattern - delete from production
     @Override
     public void devalueExpression(String input) {
 
@@ -247,7 +254,7 @@ public class MathUtilsImpl implements MathUtils {
 
     // to use ONLY with prepared expression String from previous function
     @Override
-    public String evaluateExpression(Expression ex) {
+    public String evaluateExpressionToString(Expression ex) {
 
         return ex.getBody().stream()
                 .map(s -> s.matches("[0-9.]*") ? String.valueOf(((double) (int) (ThreadLocalRandom.current()
@@ -256,7 +263,7 @@ public class MathUtilsImpl implements MathUtils {
     }
 
     @Override
-    public List<String> evaluateExpressionList(Expression ex) {
+    public List<String> evaluateExpressionToList(Expression ex) {
 
         return ex.getBody().stream()
                 .map(s -> s.matches("[0-9.]*") ? String.valueOf(((double) (int) (ThreadLocalRandom.current()
