@@ -54,6 +54,7 @@ public class ExpressionControllerImpl implements ExpressionController {
             return new ResponseEntity<>(randomExpression, HttpStatus.OK);
         } catch (RuntimeException e) {
             // sending error code 404 - means NO Expressions found in this Level
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

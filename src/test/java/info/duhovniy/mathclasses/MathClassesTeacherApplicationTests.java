@@ -3,11 +3,11 @@ package info.duhovniy.mathclasses;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.duhovniy.mathclasses.commons.MathException;
-import info.duhovniy.mathclasses.commons.MathUtils;
-import info.duhovniy.mathclasses.commons.MathUtilsImpl;
 import info.duhovniy.mathclasses.dto.Expression;
 import info.duhovniy.mathclasses.dto.Student;
 import info.duhovniy.mathclasses.services.ExpressionService;
+import info.duhovniy.mathclasses.services.MathService;
+import info.duhovniy.mathclasses.services.MathServiceImpl;
 import info.duhovniy.mathclasses.services.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,7 @@ import java.util.Map;
 public class MathClassesTeacherApplicationTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(MathClassesTeacherApplicationTests.class);
-    private final MathUtils mathUtils = new MathUtilsImpl();
+    private final MathService mathService = new MathServiceImpl();
 
     @Autowired
     private StudentService studentService;
@@ -38,27 +38,24 @@ public class MathClassesTeacherApplicationTests {
 
     @Test
 	public void calculate() {
-        String infix = "  3* 7*( 3-5/2)^   2 ";
+        String infix = "3*5-1";
         LOG.info("Infix: " + infix);
 
         try {
-            List<String> preparedList = mathUtils.prepareString(infix);
+            List<String> preparedList = mathService.prepareString(infix);
             LOG.info("Prepared list: " + preparedList);
-            LOG.info("Postfix list: " + mathUtils.infixToPostfixList(preparedList));
+            //LOG.info("Postfix list: " + mathService.infixToPostfixList(preparedList));
             Expression ex = new Expression();
             ex.setBody(preparedList);
             ex.setMin(-50);
             ex.setMax(50);
             ex.setRank(1);
-            LOG.info("Result from list: " + mathUtils.calculateExpression(mathUtils.infixToPostfixList(preparedList)));
-            double x = mathUtils.calculateExpression(ex);
+            double x = mathService.calculateExpression(ex);
             LOG.info("Result from expression: " + x);
 
-            LOG.info("Evaluated string: " + mathUtils.evaluateExpressionToString(ex));
-            LOG.info("Evaluated list: " + mathUtils.evaluateExpressionToList(ex));
-            LOG.info("Evaluated list: " + mathUtils.evaluateExpressionToExpression(ex));
-            // TODO: deprecate
-            mathUtils.devalueExpression(infix);
+            //LOG.info("Evaluated string: " + mathService.evaluateExpressionToString(ex));
+            //LOG.info("Evaluated list: " + mathService.evaluateExpressionToList(ex));
+            LOG.info("Evaluated list: " + mathService.evaluateExpressionToExpression(ex));
         } catch (MathException e) {
             LOG.info(e.getMessage());
         }

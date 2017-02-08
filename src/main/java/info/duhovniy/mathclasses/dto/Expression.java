@@ -34,6 +34,7 @@ public class Expression {
 
     // Range of random expression parameters
     @NotNull(message = "Error: Min range of expression param could not be NULL")
+    @Min(value = 0, message = "Error: Rank should be >= 0")
     private int min;
     @NotNull(message = "Error: Max range of expression param could not be NULL")
     private int max;

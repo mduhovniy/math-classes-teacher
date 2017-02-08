@@ -3,7 +3,6 @@ package info.duhovniy.mathclasses.services;
 
 import info.duhovniy.mathclasses.commons.CustomSampleOperation;
 import info.duhovniy.mathclasses.commons.MathException;
-import info.duhovniy.mathclasses.commons.MathUtils;
 import info.duhovniy.mathclasses.dao.ExpressionRepository;
 import info.duhovniy.mathclasses.dto.Expression;
 import lombok.AllArgsConstructor;
@@ -15,13 +14,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static info.duhovniy.mathclasses.commons.MathUtils.round;
+
 @Service
 @AllArgsConstructor
 public class ExpressionServiceImpl implements ExpressionService {
 
     private final ExpressionRepository expressionRepository;
 
-    private final MathUtils mathUtils;
+    private final MathService mathService;
 
     private final MongoTemplate mongoTemplate;
 
@@ -38,7 +39,7 @@ public class ExpressionServiceImpl implements ExpressionService {
     @Override
     public Boolean isExpressionValid(Expression expression) {
         try {
-            mathUtils.calculateExpression(expression);
+            expression.setTempResult(round(mathService.calculateExpression(expression), expression.getRank()));
             return true;
         } catch (Exception e) {
             return false;
@@ -72,12 +73,10 @@ public class ExpressionServiceImpl implements ExpressionService {
             // Evaluation according inner criteria
             while (true) {
                 try {
-                    result = mathUtils.evaluateExpressionToExpression(result);
-                    double tempResult = mathUtils.calculateExpression(result);
-                    result.setTempResult(tempResult);
+                    result = mathService.evaluateExpressionToExpression(result);
                     return result;
                 } catch (MathException e) {
-                    System.out.println(e.getMessage() + " Lets try again;)");
+                    System.out.println(e.getMessage() + " Lets try it again;)");
                 }
             }
         }
@@ -85,7 +84,7 @@ public class ExpressionServiceImpl implements ExpressionService {
 
     @Override
     public List<String> prepareExpression(String input) throws MathException {
-        return mathUtils.prepareString(input);
+        return mathService.prepareString(input);
     }
 
     @Override

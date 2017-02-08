@@ -1,4 +1,4 @@
-package info.duhovniy.mathclasses.conrollers;
+package info.duhovniy.mathclasses.commons;
 
 
 import info.duhovniy.mathclasses.dto.ValidationErrorDTO;
